@@ -36,7 +36,6 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Pages
            EnterUserName(user.UserName);
            EnterPassword(user.Password);
            ClickLoginPopUpButton();
-
         }
     }
 }

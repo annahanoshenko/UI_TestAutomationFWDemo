@@ -1,5 +1,4 @@
-﻿
-namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Entities
+﻿namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Entities
 {
     internal class OrderEntity
     {
@@ -19,6 +18,5 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Entities
             Month = month;
             Year = year;
         }
-
     }
 }

@@ -31,6 +31,5 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Base
             IAlert alert = GetAlertWithWait();
             alert.Accept();
         }
-
     }
 }

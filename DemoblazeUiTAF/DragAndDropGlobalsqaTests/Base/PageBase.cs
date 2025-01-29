@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 
-
 namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Base
 {
     internal class PageBase

@@ -1,6 +1,7 @@
 ﻿using DemoblazeUiTAF.AutoTestsDemoblazePOM.Base;
 using DemoblazeUiTAF.AutoTestsDemoblazePOM.Entities;
 using DemoblazeUiTAF.AutoTestsDemoblazePOM.Pages;
+using DemoblazeUiTAF.AutoTestsDemoblazePOM.Storages;
 using NUnit.Framework;
 
 namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
@@ -11,7 +12,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void ShouldCteateNewUser_WhenDataIsValid()
         {
-            UserEntity user = new UserEntity("Anna" + DateTime.Now.Ticks, "qwerty67");
+            UserEntity user = UserStorage.UserWithDynamicName;
 
             SignUpPage signUpPage = new SignUpPage(Driver);
 
@@ -27,11 +28,9 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void Registration_ShouldFail_WhenUsernameAndPasswordFieldsAreEmpty()
         {
-            UserEntity user = new UserEntity("", "");
-
             SignUpPage signUpPage = new SignUpPage(Driver);
 
-            signUpPage.RegisterNewUser(user);
+            signUpPage.RegisterNewUser(UserStorage.UserWithEmptyFields);
 
             string actualAlertText = signUpPage.GetAlertTextWithWait();
             string expectedAlertText = "Please fill out Username and Password.";
@@ -41,26 +40,14 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         }
 
         [Test]
-        public void ShouldloginExistingUser_WhenDataIsValid()
-        {
-            UserEntity user = new UserEntity("Anna14", "qwerty67");
-
-            LoginPage loginPage = new LoginPage(Driver);
-
-            loginPage.LoginUser(user);
-        }
-
-        [Test]
         public void ShouldDisplayWelcomeLable_AfterLogin()
         {
-            UserEntity user = new UserEntity("Anna14", "qwerty67");
-
             LoginPage loginPage = new LoginPage(Driver);
 
-            loginPage.LoginUser(user);
+            loginPage.LoginUser(UserStorage.ValidTestUser);
 
-            string actualWelcomeLable = loginPage.GetWelcomeMessageText(user.UserName);
-            string expectedWelcomeLablel = ($"Welcome {user.UserName}");
+            string actualWelcomeLable = loginPage.GetWelcomeMessageText(UserStorage.ValidTestUser.UserName);
+            string expectedWelcomeLablel = ($"Welcome {UserStorage.ValidTestUser.UserName}");
 
             Assert.That(actualWelcomeLable.Equals(expectedWelcomeLablel));
         }
@@ -68,11 +55,9 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void LoginShouldFail_WhenUsernameAndPasswordFieldsAreEmpty()
         {
-            UserEntity user = new UserEntity("", "");
-
             LoginPage loginPage = new LoginPage(Driver);
 
-            loginPage.LoginUser(user);
+            loginPage.LoginUser(UserStorage.UserWithEmptyFields);
 
             string actualAlertText = loginPage.GetAlertTextWithWait();
             string expectedAlertText = "Please fill out Username and Password.";
@@ -97,6 +82,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
 
             cartPage.ClickCartButton();
         }
+
         [Test]
         public void ShouldDeleteProductFromCart_Succeds()
         {
@@ -120,14 +106,13 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void CanMakeOrderSuccessfully_WhenDataIsValid()
         {
-            UserEntity user = new UserEntity("Anna14", "qwerty67");
             OrderEntity order = new OrderEntity("Anna", "USA", "New York", "123456789", "12", "122029");
             LoginPage loginPage = new LoginPage(Driver);
             ProductPage productPage = new ProductPage(Driver);
             CartPage cartPage = new CartPage(Driver);
             OrderPage orderPage = new OrderPage(Driver);
 
-            loginPage.LoginUser(user);
+            loginPage.LoginUser(UserStorage.ValidTestUser);
 
             // Add product to cart
             productPage.WaitForTheProductToBeNotStale();
@@ -148,7 +133,6 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void MakeOrderShouldFail_WhenOrderNameAndCardFieldsAreEmpty()
         {
-            UserEntity user = new UserEntity("Anna14", "qwerty67");
             OrderEntity order = new OrderEntity("", "USA", "New York", "", "12", "122029");
 
             LoginPage loginPage = new LoginPage(Driver);
@@ -156,7 +140,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
             CartPage cartPage = new CartPage(Driver);
             OrderPage orderPage = new OrderPage(Driver);
 
-            loginPage.LoginUser(user);
+            loginPage.LoginUser(UserStorage.ValidTestUser);
 
             productPage.WaitForTheProductToBeNotStale();
             productPage.ClickProductNameTitle();
@@ -177,7 +161,6 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void MakeOrderWithEmptyCart_Succeds()
         {
-            UserEntity user = new UserEntity("Anna14", "qwerty67");
             OrderEntity order = new OrderEntity("Anna", "USA", "New York", "123456789", "12", "122029");
          
             LoginPage loginPage = new LoginPage(Driver);
@@ -185,7 +168,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
             CartPage cartPage = new CartPage(Driver);
             OrderPage orderPage = new OrderPage(Driver);
 
-            loginPage.LoginUser(user);
+            loginPage.LoginUser(UserStorage.ValidTestUser);
 
             productPage.WaitForTheProductToBeNotStale();
             productPage.ClickProductNameTitle();

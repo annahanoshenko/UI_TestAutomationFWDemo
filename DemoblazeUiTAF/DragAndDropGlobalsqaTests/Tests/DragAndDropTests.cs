@@ -2,8 +2,6 @@
 using DemoblazeUiTAF.DragAndDropGlobalsqaTests.Base;
 using DemoblazeUiTAF.DragAndDropGlobalsqaTests.Pages;
 using NUnit.Framework;
-using OpenQA.Selenium;
-
 
 namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
 {

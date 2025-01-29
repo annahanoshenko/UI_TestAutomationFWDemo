@@ -25,6 +25,5 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Pages
         public void ClickCartButton() => CartButton.Click();
         public void ClickDeleteProductBtn() => DeleteFromCartBtn.Click();
         public void ClickPlaceOrderButton() => PlaceOrderButton.Click();
-
     }
 }
