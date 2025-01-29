@@ -1,5 +1,4 @@
-﻿
-using DemoblazeUiTAF.DragAndDropGlobalsqaTests.Base;
+﻿using DemoblazeUiTAF.DragAndDropGlobalsqaTests.Base;
 using DemoblazeUiTAF.DragAndDropGlobalsqaTests.Pages;
 using NUnit.Framework;
 
@@ -20,8 +19,7 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
             mainPage.DragAndDropElement(photoName);
 
             bool isElementInTrash = mainPage.IsElementInTrash(photoName);
-
-            // Assert.IsTrue(isElementInTrash)
+            Assert.That(isElementInTrash, Is.True);
         }
 
         [TestCase("High Tatras")]
@@ -36,7 +34,7 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
             mainPage.ClickTrashIcon();
 
             bool isElementInTrash = mainPage.IsElementInTrash(photoName);
-
+            Assert.That(isElementInTrash, Is.True);
         }
 
         [TestCase("High Tatras")]
@@ -52,7 +50,7 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
             mainPage.DragAndDropElement(photoName);
 
             bool isElementInPhotoMAnager = mainPage.IsElementInPhotoMAnager(photoName);
-
+            Assert.That(isElementInPhotoMAnager, Is.True);
         }
 
         [TestCase("High Tatras")]
@@ -68,7 +66,7 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
             mainPage.ClickRecycleIcon();
 
             bool isElementInPhotoMAnager = mainPage.IsElementInPhotoMAnager(photoName);
-
+            Assert.That(isElementInPhotoMAnager, Is.True);
         }
 
         [Test]
@@ -94,7 +92,6 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
                 string imageSearchKey = imgMap[imageWidget.Title.Text];
                 mainPage.WaitUntilImageIsZoomed(imageSearchKey);
             }
-
         }
 
         [TestCase("High Tatras")]
@@ -110,6 +107,7 @@ namespace DemoblazeUiTAF.DragAndDropGlobalsqaTests.Tests
             mainPage.ClickExitIcon();
 
             bool isElementInPhotoMAnager = mainPage.IsElementInPhotoMAnager(photoName);
+            Assert.That(isElementInPhotoMAnager, Is.True);
         }
 
     }
