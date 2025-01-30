@@ -7,64 +7,8 @@ using NUnit.Framework;
 namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
 {
     [TestFixture]
-    public class Tests : BaseTest
+    internal class OrderTests : BaseTest
     {
-        [Test]
-        public void ShouldCteateNewUser_WhenDataIsValid()
-        {
-            UserEntity user = UserStorage.UserWithDynamicName;
-
-            SignUpPage signUpPage = new SignUpPage(Driver);
-
-            signUpPage.RegisterNewUser(user);
-
-            string actualAlertText = signUpPage.GetAlertTextWithWait();
-            string expectedAlertText = "Sign up successful.";
-            signUpPage.AcceptAlert();
-
-            Assert.That(actualAlertText.Equals(expectedAlertText));
-        }
-
-        [Test]
-        public void Registration_ShouldFail_WhenUsernameAndPasswordFieldsAreEmpty()
-        {
-            SignUpPage signUpPage = new SignUpPage(Driver);
-
-            signUpPage.RegisterNewUser(UserStorage.UserWithEmptyFields);
-
-            string actualAlertText = signUpPage.GetAlertTextWithWait();
-            string expectedAlertText = "Please fill out Username and Password.";
-            signUpPage.AcceptAlert();
-
-            Assert.That(actualAlertText.Equals(expectedAlertText));
-        }
-
-        [Test]
-        public void ShouldDisplayWelcomeLable_AfterLogin()
-        {
-            LoginPage loginPage = new LoginPage(Driver);
-
-            loginPage.LoginUser(UserStorage.ValidTestUser);
-
-            string actualWelcomeLable = loginPage.GetWelcomeMessageText(UserStorage.ValidTestUser.UserName);
-            string expectedWelcomeLablel = ($"Welcome {UserStorage.ValidTestUser.UserName}");
-
-            Assert.That(actualWelcomeLable.Equals(expectedWelcomeLablel));
-        }
-
-        [Test]
-        public void LoginShouldFail_WhenUsernameAndPasswordFieldsAreEmpty()
-        {
-            LoginPage loginPage = new LoginPage(Driver);
-
-            loginPage.LoginUser(UserStorage.UserWithEmptyFields);
-
-            string actualAlertText = loginPage.GetAlertTextWithWait();
-            string expectedAlertText = "Please fill out Username and Password.";
-            loginPage.AcceptAlert();
-
-            Assert.That(actualAlertText.Equals(expectedAlertText));
-        }
         [Test]
         public void ShouldAddProductToCart_Succeds()
         {
@@ -118,11 +62,11 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
             productPage.WaitForTheProductToBeNotStale();
             productPage.ClickProductNameTitle();
             productPage.ClickAddToCartButton();
-    
+
             // Place order
             cartPage.ClickCartButton();
             cartPage.ClickPlaceOrderButton();
-            
+
             orderPage.FillingOrderFields(order);
 
             // Verify confirmation
@@ -162,7 +106,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         public void MakeOrderWithEmptyCart_Succeds()
         {
             OrderEntity order = new OrderEntity("Anna", "USA", "New York", "123456789", "12", "122029");
-         
+
             LoginPage loginPage = new LoginPage(Driver);
             ProductPage productPage = new ProductPage(Driver);
             CartPage cartPage = new CartPage(Driver);
@@ -183,6 +127,5 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
             Assert.That(confirmationMessage, Is.EqualTo("Thank you for your purchase!"));
             orderPage.ClickOkButton();
         }
-
     }
 }
