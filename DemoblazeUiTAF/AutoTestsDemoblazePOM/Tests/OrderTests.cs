@@ -50,7 +50,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void CanMakeOrderSuccessfully_WhenDataIsValid()
         {
-            OrderEntity order = new OrderEntity("Anna", "USA", "New York", "123456789", "12", "122029");
+            OrderEntity order = OrderStorage.ValidOrder;
             LoginPage loginPage = new LoginPage(Driver);
             ProductPage productPage = new ProductPage(Driver);
             CartPage cartPage = new CartPage(Driver);
@@ -74,10 +74,11 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
             Assert.That(confirmationMessage, Is.EqualTo("Thank you for your purchase!"));
             orderPage.ClickOkButton();
         }
+
         [Test]
         public void MakeOrderShouldFail_WhenOrderNameAndCardFieldsAreEmpty()
         {
-            OrderEntity order = new OrderEntity("", "USA", "New York", "", "12", "122029");
+            OrderEntity order = OrderStorage.OrderWithEmptyNameField;
 
             LoginPage loginPage = new LoginPage(Driver);
             ProductPage productPage = new ProductPage(Driver);
@@ -105,7 +106,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Tests
         [Test]
         public void MakeOrderWithEmptyCart_Succeds()
         {
-            OrderEntity order = new OrderEntity("Anna", "USA", "New York", "123456789", "12", "122029");
+            OrderEntity order = OrderStorage.ValidOrder;
 
             LoginPage loginPage = new LoginPage(Driver);
             ProductPage productPage = new ProductPage(Driver);
