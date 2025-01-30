@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
+using DemoblazeUiTAF.AutoTestsDemoblazePOM.Environment;
 
 namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Base
 {
@@ -12,7 +13,7 @@ namespace DemoblazeUiTAF.AutoTestsDemoblazePOM.Base
         public void Setup()
         {
             Driver = new ChromeDriver();
-            Driver.Navigate().GoToUrl("https://www.demoblaze.com");
+            Driver.Navigate().GoToUrl(EnvironmentConfig.WebsiteUrl);
             Driver.Manage().Window.Maximize();
             Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
